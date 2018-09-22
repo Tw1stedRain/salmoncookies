@@ -12,28 +12,39 @@ var pike_1st = {
   min: 23,
   max: 65,
   avgCookies: 6.3,
-  randomCustomer: function(min, max){
+  randomCustomer: function (min,max){
     min = Math.ceil(min);
     max = Math.floor(max);
     var customers = Math.floor(Math.random() * (max - min + 1)) + min;
-    console.log(customers);
+    return customers;
   }
 };
-
-
+// pike_1st.randomCustomer();
 
 var seaTac = {
   location: 'SeaTac Airport',
   min: 3,
   max: 24,
-  avgCookies: 1.2
+  avgCookies: 1.2,
+  randomCustomer: function (min,max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    var customers = Math.floor(Math.random() * (max - min + 1)) + min;
+    return customers;
+  }
 };
 
 var seattle = {
   location: 'Seattle Center',
   min: 11,
   max: 38,
-  avgCookies: 3.7
+  avgCookies: 3.7,
+  randomCustomer: function (min,max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    var customers = Math.floor(Math.random() * (max - min + 1)) + min;
+    return customers;
+  }
 };
 
 var capitol = {
@@ -41,6 +52,12 @@ var capitol = {
   min: 20,
   max: 38,
   avgCookies: 2.3,
+  randomCustomer: function (min,max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    var customers = Math.floor(Math.random() * (max - min + 1)) + min;
+    return customers;
+  }
 };
 
 var alki = {
@@ -48,4 +65,10 @@ var alki = {
   min: 2,
   max: 16,
   avgCookies: 4.6,
+  randomCustomer: function (min,max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    var customers = Math.floor(Math.random() * (max - min + 1)) + min;
+    return customers;
+  }
 };
