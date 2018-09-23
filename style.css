@@ -1,0 +1,15 @@
+html {
+    background-image: url('salmon.png'); 
+    background-color: dimgrey;
+    background-size: 10%
+    
+}
+
+.storeName {
+    background-color: rgb(138, 134, 134);
+    text-align: center;
+}
+
+ul {
+    background-color: rgb(167, 35, 35);
+}
