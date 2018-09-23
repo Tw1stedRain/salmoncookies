@@ -12,8 +12,8 @@ var pike_1st = {
   min: 23,
   max: 65,
   avgCookies: 6.3,
-  cookiesPerHour:[],
   cusPerHour:[],
+  cookiesPerHour:[],
   randomCustomer: function (min, max) {
     for (var i = 0; i < 15; i++) {
       var customers = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -36,8 +36,8 @@ var seaTac = {
   min: 3,
   max: 65,
   avgCookies: 1.2,
-  cookiesPerHour:[],
   cusPerHour:[],
+  cookiesPerHour:[],
   randomCustomer: function (min, max) {
     for (var i = 0; i < 15; i++) {
       var customers = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -59,17 +59,17 @@ var seattle = {
   min: 11,
   max: 38,
   avgCookies: 3.7,
-  cookiesPerHour:[],
   cusPerHour:[],
+  cookiesPerHour:[],
   randomCustomer: function (min, max) {
     for (var i = 0; i < 15; i++) {
       var customers = Math.floor(Math.random() * (max - min + 1)) + min;
       this.cusPerHour.push(customers);
-      console.log(customers);
+      console.log('customers per hour: ' + customers);
     }
   },
   totalCookiePerHour: function(){
-    for (var i  =0; i<15; i++){
+    for (var i  = 0; i<15; i++){
       var cookies = Math.floor(this.cusPerHour[i] * this.avgCookies);
       this.cookiesPerHour.push(cookies);
       console.log('cookies per hour :' + cookies);
@@ -82,8 +82,8 @@ var capitol = {
   min: 20,
   max: 38,
   avgCookies: 2.3,
-  cookiesPerHour:[],
   cusPerHour:[],
+  cookiesPerHour:[],
   randomCustomer: function (min, max) {
     for (var i = 0; i < 15; i++) {
       var customers = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -105,8 +105,8 @@ var alki = {
   min: 2,
   max: 16,
   avgCookies: 4.6,
-  cookiesPerHour:[],
   cusPerHour:[],
+  cookiesPerHour:[],
   randomCustomer: function (min, max) {
     for (var i = 0; i < 15; i++) {
       var customers = Math.floor(Math.random() * (max - min + 1)) + min;
