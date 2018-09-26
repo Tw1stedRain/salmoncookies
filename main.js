@@ -8,6 +8,7 @@ var Store = function(name, minCustomersPerHour, maxCustomersPerHour, averageCook
   this.max = maxCustomersPerHour;
   this.avgCookiesPerSale = averageCookiesSoldPerCustomer;
   this.cookiesSoldEachHour = [];
+  this.storeHours = ['6am: ', '7am: ', '8am: ', '9am: ', '10am: ', '11am: ', '12pm: ', '1pm: ', '2pm: ', '3pm: ', '4pm: ', '5pm: ', '6pm: ', '7pm: ', '8pm: '];
 };
 
 //Pike Place
@@ -62,7 +63,7 @@ Store.prototype.renderHours = function(){
   for(var i in this.cookiesSoldEachHour){
     var listItemEl = document.createElement('li');
     console.log(listItemEl);
-    listItemEl.textContent = this.cookiesSoldEachHour[i];
+    listItemEl.textContent = this.storeHours[i] + this.cookiesSoldEachHour[i];
     ulEl.appendChild(listItemEl);
   }
 
