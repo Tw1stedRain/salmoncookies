@@ -5,11 +5,17 @@ html {
     
 }
 
-.storeName {
+h2 {
     background-color: rgb(138, 134, 134);
+    text-align: center;
+}
+h1 {
+    background-color: rgb(167, 35, 35);
     text-align: center;
 }
 
 ul {
     background-color: rgb(167, 35, 35);
+    width: 50%;
+
 }

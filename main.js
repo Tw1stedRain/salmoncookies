@@ -10,12 +10,6 @@ var Store = function(name, minCustomersPerHour, maxCustomersPerHour, averageCook
   this.cookiesSoldEachHour = [];
 };
 
-
-Store.prototype.calculateCustomersPerHour = function(){
-  var randomAmount = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
-  return Math.round(randomAmount * this.avgCookiesPerSale);
-};
-
 //Pike Place
 var pikePlace = new Store('1st and Pike', 23, 65, 6.3);
 console.log(pikePlace);
@@ -35,6 +29,11 @@ console.log(capitol);
 //Alki Store
 var alki = new Store('Alki', 2, 16, 4.6);
 console.log(alki);
+
+Store.prototype.calculateCustomersPerHour = function(){
+  var randomAmount = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
+  return Math.round(randomAmount * this.avgCookiesPerSale);
+};
 
 Store.prototype.calculateCustomersPerHour = function(){
   var randomAmount = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
