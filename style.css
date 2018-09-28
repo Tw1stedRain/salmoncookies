@@ -1,6 +1,6 @@
 html {
     background-image: url('salmon.png'); 
-    background-color: dimgrey;
+    background-color: rgb(138, 134, 134);
     background-size: 10%
     
 }
@@ -19,4 +19,7 @@ h2 {
 
 #store-table {
     background-color: rgb(138, 134, 134);
+}
+td{
+    text-align: center;
 }
