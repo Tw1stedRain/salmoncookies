@@ -17,9 +17,21 @@ h2 {
 }
 
 
-#store-table {
+#storeTable {
     background-color: rgb(138, 134, 134);
 }
 td{
     text-align: center;
+}
+
+form {
+    background-color: rgb(167, 35, 35);
+}
+
+button {
+    color: rgb(160, 216, 253);
+       
+}
+#tableHeader {
+    font-weight: bold;
 }
