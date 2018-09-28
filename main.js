@@ -8,14 +8,10 @@ var Store = function(name, minCustomersPerHour, maxCustomersPerHour, averageCook
   this.max = maxCustomersPerHour;
   this.avgCookiesPerSale = averageCookiesSoldPerCustomer;
   this.cookiesSoldEachHour = [];
-  this.storeHours = ['6am: ', '7am: ', '8am: ', '9am: ', '10am: ', '11am: ', '12pm: ', '1pm: ', '2pm: ', '3pm: ', '4pm: ', '5pm: ', '6pm: ', '7pm: ', '8pm: '];
+  this.totalSales = 0;
 };
 
-
-Store.prototype.calculateCustomersPerHour = function(){
-  var randomAmount = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
-  return Math.round(randomAmount * this.avgCookiesPerSale);
-};
+//all store prototypes:
 
 Store.prototype.calculateCustomersPerHour = function(){
   var randomAmount = Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
@@ -25,6 +21,7 @@ Store.prototype.calculateCustomersPerHour = function(){
 Store.prototype.calculateCookiesSoldEachHour = function(){
   for(var i = 0; i < 15; i++){
     this.cookiesSoldEachHour.push(this.calculateCustomersPerHour());
+    this.totalSales += this.cookiesSoldEachHour[i];
   }
 };
 
@@ -61,45 +58,31 @@ Store.prototype.renderHours = function(){
 };
 
 Store.prototype.renderAsTableRow = function(){
-  //calculate data needed
   this.calculateCookiesSoldEachHour();
-
-  //S1: reference container element
   var tableEl = document.getElementById('store-table');
-
-  //S2: make new table row (tr) element
   var trEl = document.createElement('tr');
 
   //S3: give element content, a table row takes in table headers, and table data as content
-
   //give a table row a table header element
   var thEl = document.createElement('th'); //table header
   thEl.textContent = this.name;
   trEl.appendChild(thEl); //append th to the row
 
-  //=======================
-  //class example; USE AS REFERENCE NOT ACTUAL USEFUL CODE
-  //=======================
-
-  //give the table row table data about min customers
+  //loop to create cookies/hr, append
   var tdEl = document.createElement('td');
-  tdEl.textContent = this.min;
-  trEl.appendChild(tdEl);
 
-  //give the table row a td about max customers
+  for(var i in this.cookiesSoldEachHour){
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.cookiesSoldEachHour[i];
+    console.log(tdEl);
+    trEl.appendChild(tdEl);
+  }
+
+  //total sales, append
   tdEl = document.createElement('td');
-  tdEl.textContent = this.max;
+  tdEl.textContent = this.totalSales;
   trEl.appendChild(tdEl);
-
-  //give the table row a td about avg purchased cookies
-  tdEl = document.createElement('td');
-  tdEl.textContent = this.avgCookiesPerSale;
-  trEl.appendChild(tdEl);
-
-  //Step append the row we have been building to the table itsself
   tableEl.appendChild(trEl);
-
-
 
 };
 
@@ -109,15 +92,15 @@ Store.prototype.renderAsTableRow = function(){
 // =============================
 var allSalmonStores = [];
 
-var pikePlace = new Store('1st and Pike', 23, 65, 6.3);
+var pikePlace = new Store('1st and Pike', 23, 65, 6.3, 0);
 console.log(pikePlace);
-var seaTac = new Store('SeaTac', 30, 35, 3.14);
+var seaTac = new Store('SeaTac', 30, 35, 3.14, 0);
 console.log(seaTac);
-var center = new Store('Seattle Center', 11, 38, 3.7);
+var center = new Store('Seattle Center', 11, 38, 3.7, 0);
 console.log(center);
-var capitol = new Store('Capitol Hill', 20, 38, 2.3);
+var capitol = new Store('Capitol Hill', 20, 38, 2.3, 0);
 console.log(capitol);
-var alki = new Store('Alki', 2, 16, 4.6);
+var alki = new Store('Alki', 2, 16, 4.6, 0);
 console.log(alki);
 
 allSalmonStores.push(pikePlace);
@@ -138,6 +121,16 @@ var renderAllStores = function(){
   alki.renderHours();
 };
 
-pikePlace.renderAsTableRow();
+var renderAllStoresAsTableRow = function(){
+  pikePlace.renderAsTableRow();
+  seaTac.renderAsTableRow();
+  center.renderAsTableRow();
+  capitol.renderAsTableRow();
+  alki.renderAsTableRow();
+};
+
+
+
+renderAllStoresAsTableRow();
 
 // renderAllStores();
