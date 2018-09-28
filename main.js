@@ -2,6 +2,8 @@
 
 //constructor for all stores
 
+var storeForm = document.getElementById('newStoreForm');
+
 var Store = function(name, minCustomersPerHour, maxCustomersPerHour, averageCookiesSoldPerCustomer){
   this.name = name;
   this.min = minCustomersPerHour;
@@ -9,6 +11,7 @@ var Store = function(name, minCustomersPerHour, maxCustomersPerHour, averageCook
   this.avgCookiesPerSale = averageCookiesSoldPerCustomer;
   this.cookiesSoldEachHour = [];
   this.totalSales = 0;
+  this.storeHours = ['','6am', '7am' ,'8am', '9am,', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Total Cookies for the Day'];
 };
 
 //all store prototypes:
@@ -44,7 +47,7 @@ Store.prototype.renderHours = function(){
 
   var ulEl = document.createElement('ul');
   for(var i in this.cookiesSoldEachHour){
-    
+
     //step 2(again)
     var listItemEl = document.createElement('li');
     console.log(listItemEl);
@@ -57,11 +60,22 @@ Store.prototype.renderHours = function(){
   storesContainer.appendChild(ulEl);
 };
 
+Store.prototype.renderTableHeader = function(){
+  var trEl = document.getElementById('tableHeader');
+  var thEl = document.createElement('th');
+  for(var i in this.storeHours){
+    var tdEl = document.createElement('td');
+    tdEl.textContent = this.storeHours[i];
+    trEl.appendChild(tdEl);
+  }
+  trEl.appendChild(thEl);
+};
+
 Store.prototype.renderAsTableRow = function(){
   this.calculateCookiesSoldEachHour();
-  var tableEl = document.getElementById('store-table');
-  var trEl = document.createElement('tr');
+  var tableEl = document.getElementById('storeTable');
 
+  var trEl = document.createElement('tr');
   //S3: give element content, a table row takes in table headers, and table data as content
   //give a table row a table header element
   var thEl = document.createElement('th'); //table header
@@ -70,11 +84,9 @@ Store.prototype.renderAsTableRow = function(){
 
   //loop to create cookies/hr, append
   var tdEl = document.createElement('td');
-
   for(var i in this.cookiesSoldEachHour){
     tdEl = document.createElement('td');
     tdEl.textContent = this.cookiesSoldEachHour[i];
-    console.log(tdEl);
     trEl.appendChild(tdEl);
   }
 
@@ -86,12 +98,30 @@ Store.prototype.renderAsTableRow = function(){
 
 };
 
+//footer function
+
+//form input
+var makeStore = function(newStore){
+  newStore.preventDefault();
+  newStore.stopPropagation();
+  var storeName = newStore.target.name.value;
+  var storeMin = newStore.target.min.value;
+  var storeMax = newStore.target.max.value;
+  var storeCookieAvg = newStore.target.avgCookiesPerSale.value;
+  console.log(storeName, storeMin, storeMax, storeCookieAvg);
+};
+
+
+storeForm.addEventListener('submit', makeStore);
+
+
 
 // =============================
 // Declare Objects
 // =============================
 var allSalmonStores = [];
 
+var empty = new Store();
 var pikePlace = new Store('1st and Pike', 23, 65, 6.3, 0);
 console.log(pikePlace);
 var seaTac = new Store('SeaTac', 30, 35, 3.14, 0);
@@ -110,7 +140,7 @@ allSalmonStores.push(capitol);
 allSalmonStores.push(alki);
 
 //=============================
-// Render Stores
+// Rendering
 //=============================
 
 var renderAllStores = function(){
@@ -122,15 +152,14 @@ var renderAllStores = function(){
 };
 
 var renderAllStoresAsTableRow = function(){
+  empty.renderTableHeader();
   pikePlace.renderAsTableRow();
   seaTac.renderAsTableRow();
   center.renderAsTableRow();
   capitol.renderAsTableRow();
   alki.renderAsTableRow();
 };
-
-
-
 renderAllStoresAsTableRow();
+
 
 // renderAllStores();
