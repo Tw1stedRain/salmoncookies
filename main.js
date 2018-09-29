@@ -1,9 +1,10 @@
 'use strict';
 
-//constructor for all stores
-
 var storeForm = document.getElementById('newStoreForm');
 
+var storeHours = ['','6am', '7am' ,'8am', '9am,', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Total Cookies for the Day'];
+
+//constructor for all stores
 var Store = function(name, minCustomersPerHour, maxCustomersPerHour, averageCookiesSoldPerCustomer){
   this.name = name;
   this.min = minCustomersPerHour;
@@ -11,8 +12,25 @@ var Store = function(name, minCustomersPerHour, maxCustomersPerHour, averageCook
   this.avgCookiesPerSale = averageCookiesSoldPerCustomer;
   this.cookiesSoldEachHour = [];
   this.totalSales = 0;
-  this.storeHours = ['','6am', '7am' ,'8am', '9am,', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Total Cookies for the Day'];
+  this.renderAsTableRow();
 };
+
+//form input
+var makeStore = function(newStore){
+  newStore.preventDefault();
+  newStore.stopPropagation();
+  // if (!newStore.target.storeName.value || !newStore.target.storeMin.value || !newStore.target.storeMax.value ||newStore.target.storeCookieAvg.value){
+  //   return alert('Fields cannot be empty');
+  // }
+  var storeName = newStore.target.name.value;
+  var storeMin = parseInt(newStore.target.min.value);
+  var storeMax = parseInt(newStore.target.max.value);
+  var storeCookieAvg = parseInt(newStore.target.avgCookiesPerSale.value);
+  console.log(storeName, storeMin, storeMax, storeCookieAvg);
+  new Store (storeName, storeMin, storeMax, storeCookieAvg);
+};
+storeForm.addEventListener('submit', makeStore);
+
 
 //all store prototypes:
 
@@ -60,12 +78,12 @@ Store.prototype.renderHours = function(){
   storesContainer.appendChild(ulEl);
 };
 
-Store.prototype.renderTableHeader = function(){
+var renderTableHeader = function(){
   var trEl = document.getElementById('tableHeader');
   var thEl = document.createElement('th');
-  for(var i in this.storeHours){
+  for(var i in storeHours){
     var tdEl = document.createElement('td');
-    tdEl.textContent = this.storeHours[i];
+    tdEl.textContent = storeHours[i];
     trEl.appendChild(tdEl);
   }
   trEl.appendChild(thEl);
@@ -76,11 +94,9 @@ Store.prototype.renderAsTableRow = function(){
   var tableEl = document.getElementById('storeTable');
 
   var trEl = document.createElement('tr');
-  //S3: give element content, a table row takes in table headers, and table data as content
-  //give a table row a table header element
-  var thEl = document.createElement('th'); //table header
+  var thEl = document.createElement('th');
   thEl.textContent = this.name;
-  trEl.appendChild(thEl); //append th to the row
+  trEl.appendChild(thEl);
 
   //loop to create cookies/hr, append
   var tdEl = document.createElement('td');
@@ -98,30 +114,19 @@ Store.prototype.renderAsTableRow = function(){
 
 };
 
+
+
 //footer function
 
-//form input
-var makeStore = function(newStore){
-  newStore.preventDefault();
-  newStore.stopPropagation();
-  var storeName = newStore.target.name.value;
-  var storeMin = newStore.target.min.value;
-  var storeMax = newStore.target.max.value;
-  var storeCookieAvg = newStore.target.avgCookiesPerSale.value;
-  console.log(storeName, storeMin, storeMax, storeCookieAvg);
-};
-
-
-storeForm.addEventListener('submit', makeStore);
 
 
 
 // =============================
 // Declare Objects
 // =============================
-var allSalmonStores = [];
+// var allSalmonStores = [];
 
-var empty = new Store();
+// var empty = new Store();
 var pikePlace = new Store('1st and Pike', 23, 65, 6.3, 0);
 console.log(pikePlace);
 var seaTac = new Store('SeaTac', 30, 35, 3.14, 0);
@@ -133,15 +138,16 @@ console.log(capitol);
 var alki = new Store('Alki', 2, 16, 4.6, 0);
 console.log(alki);
 
-allSalmonStores.push(pikePlace);
-allSalmonStores.push(seaTac);
-allSalmonStores.push(center);
-allSalmonStores.push(capitol);
-allSalmonStores.push(alki);
+// allSalmonStores.push(pikePlace);
+// allSalmonStores.push(seaTac);
+// allSalmonStores.push(center);
+// allSalmonStores.push(capitol);
+// allSalmonStores.push(alki);
 
 //=============================
-// Rendering
+// Rendering of Stuffs
 //=============================
+renderTableHeader();
 
 var renderAllStores = function(){
   pikePlace.renderHours();
@@ -150,16 +156,4 @@ var renderAllStores = function(){
   capitol.renderHours();
   alki.renderHours();
 };
-
-var renderAllStoresAsTableRow = function(){
-  empty.renderTableHeader();
-  pikePlace.renderAsTableRow();
-  seaTac.renderAsTableRow();
-  center.renderAsTableRow();
-  capitol.renderAsTableRow();
-  alki.renderAsTableRow();
-};
-renderAllStoresAsTableRow();
-
-
 // renderAllStores();
