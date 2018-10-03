@@ -2,7 +2,9 @@
 
 var storeForm = document.getElementById('newStoreForm');
 
-var storeHours = ['Location Name', '6am', '7am', '8am', '9am,', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Total Cookies for the Day'];
+var storeHours = ['Location Name', '6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Total Cookies for the Day'];
+
+var allSalmonStores = [];
 
 //constructor for all stores
 var Store = function (name, minCustomersPerHour, maxCustomersPerHour, averageCookiesSoldPerCustomer) {
@@ -13,25 +15,31 @@ var Store = function (name, minCustomersPerHour, maxCustomersPerHour, averageCoo
   this.cookiesSoldEachHour = [];
   this.totalSales = 0;
   this.renderAsTableRow();
-  locations.push(this.name);
-  // allSalmonStores.push(new Store);
+  allSalmonStores.push(this);
 };
 var allCookiesSold = [];
-var locations = [];
 
 //form input
-var makeStore = function (newStore) {
-  newStore.preventDefault();
-  newStore.stopPropagation();
-  // if (!newStore.target.storeName.value || !newStore.target.storeMin.value || !newStore.target.storeMax.value ||newStore.target.storeCookieAvg.value){
+var makeStore = function (event) {
+  event.preventDefault();
+  event.stopPropagation();
+  var lolol = document.getElementById('tableFooter');
+  lolol.parentElement.removeChild(lolol);
+  // if (!event.target.storeName.value || !event.target.storeMin.value || !event.target.storeMax.value ||event.target.storeCookieAvg.value){
   //   return alert('Fields cannot be empty');
   // }
-  var storeName = newStore.target.name.value;
-  var storeMin = parseInt(newStore.target.min.value);
-  var storeMax = parseInt(newStore.target.max.value);
-  var storeCookieAvg = parseInt(newStore.target.avgCookiesPerSale.value);
+  var storeName = event.target.name.value;
+  var storeMin = parseInt(event.target.min.value);
+  var storeMax = parseInt(event.target.max.value);
+  var storeCookieAvg = parseInt(event.target.avgCookiesPerSale.value);
   console.log(storeName, storeMin, storeMax, storeCookieAvg);
   new Store(storeName, storeMin, storeMax, storeCookieAvg);
+  var myTable = document.getElementById('storeTable');
+  var myFooti = document.createElement('tfoot');
+  myFooti.setAttribute('id', 'tableFooter');
+  myTable.appendChild(myFooti);
+  renderFooterRow();
+
 };
 storeForm.addEventListener('submit', makeStore);
 
@@ -121,11 +129,8 @@ Store.prototype.renderAsTableRow = function () {
 };
 
 // =============================
-// Declare Objects
+// Build First 5 Stores
 // =============================
-var allSalmonStores = [];
-
-// var empty = new Store();
 var pikePlace = new Store('1st and Pike', 23, 65, 6.3, 0);
 console.log(pikePlace);
 var seaTac = new Store('SeaTac', 30, 35, 3.14, 0);
@@ -136,13 +141,6 @@ var capitol = new Store('Capitol Hill', 20, 38, 2.3, 0);
 console.log(capitol);
 var alki = new Store('Alki', 2, 16, 4.6, 0);
 console.log(alki);
-
-allSalmonStores.push(pikePlace);
-allSalmonStores.push(seaTac);
-allSalmonStores.push(center);
-allSalmonStores.push(capitol);
-allSalmonStores.push(alki);
-
 //========================================
 
 // footer function
